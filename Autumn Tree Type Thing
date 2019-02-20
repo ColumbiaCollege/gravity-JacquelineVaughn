@@ -1,0 +1,170 @@
+//Gravity Project: Autumn Edition... one leaf falls while it rains 
+//(rain stops at ground and then wraps)... but in slow motion... 
+//unless your computer has a better frame rate than mine...
+
+class Rain{
+  float x=0;
+  float y=100;
+  float speed=15;
+  Rain(){
+    x=random(width);
+    y=random(height);
+    speed=15;
+  }
+  void move(){
+    y=y+speed;
+    if(y>680){
+      y=0;
+      x=random(width);;
+    }
+  }
+  void display(){
+    noStroke();
+    fill(#BBC6CD);
+    ellipse(x,y,2,10);
+  }
+}
+
+//variable declaration
+final color ORA=color(255,100,0);
+final color VIO=color(58,0,193);
+int dw=2;
+int dh=2;
+boolean on=false;
+PImage leaf;
+float y1=440;
+float y2=425;
+Rain[]drops=new Rain[500];
+
+//basic setup
+void setup(){
+  background(#ffffff);
+  size(1000,700);
+  leaf=loadImage("leaf.png");
+  for(int i=0; i<drops.length;i++){
+    drops[i]=new Rain();
+  }
+}
+
+void draw(){
+  y1=y1+3;
+  //Gradient Background
+  noStroke();
+  for(int x=0;x<width;x+=dw){
+    for(int y=0;y<height;y+=dh){
+      int loc=x+y*width;
+      float ratio=float(loc)/(width*height);
+      color c=lerpColor(ORA,VIO,ratio);
+      fill(c);
+      rect(x,y,dw,dh);
+    }
+  }
+  
+  //Ground
+  fill(0);
+  rect(0,680,1000,20);
+  
+  //Tree
+  //tree base
+  fill(0);
+  noStroke();
+  rect(495,450,10,450);
+  
+  //first tier branches
+  stroke(0);
+  strokeWeight(7);
+  line(496,450,420,370);
+  line(502,450,578,370);
+  
+  //second tier branches
+  strokeWeight(4);
+  line(421,370,345,380);
+  line(421,370,411,294);
+  line(577,370,587,294);
+  line(577,370,653,380);
+  
+  //third tier, first branch set (right)
+  strokeWeight(2);
+  line(345,380,325,420);
+  line(345,380,310,350);
+  
+  //third tier, second branch set
+  line(411,294,371,274);
+  line(411,294,448,270);
+  
+  //third tier, third branch set
+  line(587,294,550,270);
+  line(587,294,630,276);
+  
+  //third tier, last branch set (left)
+  line(653,380,683,350);
+  line(653,380,673,417);
+  
+  //fourth(last) tier, first branch set
+  strokeWeight(1);
+  line(325,420,335,440);
+  line(325,420,300,425);
+  line(310,350,285,360);
+  line(310,350,310,325);
+  
+  //fourth tier, second branch set
+  line(371,274,345,285);
+  line(371,274,365,250);
+  line(448,270,450,245);
+  line(448,270,473,275);
+  
+  //fourth tier, third branch
+  line(550,270,525,280);
+  line(550,270,545,245);
+  line(630,276,630,250);
+  line(630,276,655,290);
+  
+  //fourth tier, fourth branch
+  line(683,350,675,325);
+  line(683,350,710,360);
+  line(673,417,700,420);
+  line(673,417,667,440);
+  
+  
+  //Leaves
+  float x1=310;
+  image(leaf,x1,y1,25,25);
+  float x2=275;
+  float y2=425;
+  image(leaf,x2,y2,25,25);
+  float x3=260;
+  float y3=360;
+  image(leaf,x3,y3,25,25);
+  float x4=285;
+  float y4=323;
+  image(leaf,x4,y4,25,25);
+  float x5=320;
+  float y5=285;
+  image(leaf,x5,y5,25,25);
+  float x6=340;
+  float y6=248;
+  image(leaf,x6,y6,25,25);
+  float x7=500;
+  float y7=280;
+  image(leaf,x7,y7,25,25);
+  float x8=520;
+  float y8=243;
+  image(leaf,x8,y8,25,25);
+  pushMatrix();
+  scale(-1.0, 1.0);
+  image(leaf,-leaf.width/3.15,243,25,25);
+  image(leaf,-leaf.width/3.01,275,25,25);
+  image(leaf,-leaf.width/2.29,249,25,25);
+  image(leaf,-leaf.width/2.2,289,25,25);
+  image(leaf,-leaf.width/2.14,324,25,25);
+  image(leaf,-leaf.width/2.04,359,25,25);
+  image(leaf,-leaf.width/2.07,419,25,25);
+  image(leaf,-leaf.width/2.163,439,25,25);
+  popMatrix();
+  
+  //Rain
+  for(int i=0;i<drops.length;i++){
+    drops[i].display();
+    drops[i].move();
+  }
+}

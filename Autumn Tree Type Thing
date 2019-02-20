@@ -40,7 +40,7 @@ Rain[]drops=new Rain[500];
 void setup(){
   background(#ffffff);
   size(1000,700);
-  leaf=loadImage("leaf.png");
+  leaf=loadImage("leaaf.png");
   for(int i=0; i<drops.length;i++){
     drops[i]=new Rain();
   }
